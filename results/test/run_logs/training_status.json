@@ -1,0 +1,29 @@
+{
+    "CubeBehavior": {
+        "checkpoints": [
+            {
+                "steps": 1765,
+                "file_path": "results\\test\\CubeBehavior\\CubeBehavior-1765.onnx",
+                "reward": 0.0,
+                "creation_time": 1678547378.4088686,
+                "auxillary_file_paths": [
+                    "results\\test\\CubeBehavior\\CubeBehavior-1765.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1765,
+            "file_path": "results\\test\\CubeBehavior.onnx",
+            "reward": 0.0,
+            "creation_time": 1678547378.4088686,
+            "auxillary_file_paths": [
+                "results\\test\\CubeBehavior\\CubeBehavior-1765.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.13.1+cpu"
+    }
+}
