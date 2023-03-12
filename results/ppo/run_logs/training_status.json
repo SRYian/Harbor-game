@@ -1,0 +1,29 @@
+{
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.13.1+cpu"
+    },
+    "CubeBehavior": {
+        "checkpoints": [
+            {
+                "steps": 0,
+                "file_path": "results\\ppo\\CubeBehavior\\CubeBehavior-0.onnx",
+                "reward": null,
+                "creation_time": 1678546255.90792,
+                "auxillary_file_paths": [
+                    "results\\ppo\\CubeBehavior\\CubeBehavior-0.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 0,
+            "file_path": "results\\ppo\\CubeBehavior.onnx",
+            "reward": null,
+            "creation_time": 1678546255.90792,
+            "auxillary_file_paths": [
+                "results\\ppo\\CubeBehavior\\CubeBehavior-0.pt"
+            ]
+        }
+    }
+}
