@@ -12,6 +12,7 @@ public class Ship : Agent
     public float moveSpeed = 0f;
     public float maxSpeedChange = 1f;
     public float decelerationMultiplier = 0.3f;
+    public bool randomTargetPosition = false;
 
     public float maxTurnSpeed = 15; //degrees
     public float turnSpeed = 0f;
@@ -73,14 +74,14 @@ public class Ship : Agent
         {
             float x = Mathf.Cos(Mathf.Deg2Rad * visionAngle);
             float y = Mathf.Sin(Mathf.Deg2Rad * visionAngle);
-            RaycastHit hit;
-            bool vision = Physics.Raycast(new Vector3(p.x, p.y, p.z), ((tf.right * x) + (tf.up * y)) * vision_distance, out hit);
-            bool sees_monster = (vision && hit.collider.gameObject.CompareTag("Monster"));
-            bool sees_obstacle = (vision && hit.collider.gameObject.CompareTag("Obstacle"));
-            bool sees_goal = (vision && hit.collider.gameObject.CompareTag("Target"));
-            sensor.AddObservation(sees_monster ? hit.distance / 30f : 1.0f);
-            sensor.AddObservation(sees_obstacle ? hit.distance / 30f : 1.0f);
-            sensor.AddObservation(sees_goal ? hit.distance / 30f: 1.0f);
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance);
+            bool sees_monster = (hit && hit.collider.gameObject.CompareTag("Monster"));
+            bool sees_obstacle = (hit && hit.collider.gameObject.CompareTag("Obstacle"));
+            bool sees_goal = (hit && hit.collider.gameObject.CompareTag("Target"));
+            sensor.AddObservation(sees_monster ? hit.distance / vision_distance : 1.0f);
+            sensor.AddObservation(sees_obstacle ? hit.distance / vision_distance : 1.0f);
+            sensor.AddObservation(sees_goal ? hit.distance / vision_distance : 1.0f);
+            //if (hit) print("keliatan");
         }
         base.CollectObservations(sensor);
     }
@@ -134,13 +135,41 @@ public class Ship : Agent
 
     private void OnDrawGizmos()
     {
-        Vector3 p = this.transform.position;
+        Vector3 p = transform.position;
         Transform tf = transform;
         foreach (float visionAngle in visionAngles)
         {
+
             float x = Mathf.Cos(Mathf.Deg2Rad * visionAngle);
             float y = Mathf.Sin(Mathf.Deg2Rad * visionAngle);
-            Gizmos.DrawRay(new Vector3(p.x, p.y, p.z), ((tf.right * x) + (tf.up * y)) * vision_distance);
+
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance);
+            bool sees_monster = (hit && hit.collider.gameObject.CompareTag("Monster"));
+            bool sees_obstacle = (hit && hit.collider.gameObject.CompareTag("Obstacle"));
+            bool sees_goal = (hit && hit.collider.gameObject.CompareTag("Target"));
+            bool saw_something = sees_goal || sees_monster || sees_obstacle;
+
+            Gizmos.color = Color.white;
+            if (sees_monster)
+            {
+                Gizmos.color = Color.red;
+            }
+            if (sees_obstacle)
+            {
+                Gizmos.color = Color.black;
+            }
+            if (sees_goal)
+            {
+                Gizmos.color = Color.green;
+            }
+            if (saw_something)
+            {
+                Vector2 dp = hit.point - new Vector2(p.x, p.y);
+                Gizmos.DrawRay(new Vector2(p.x, p.y), dp);
+                
+            } 
+            else 
+                Gizmos.DrawRay(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)) * vision_distance);
         }
         return;
     }
@@ -167,6 +196,7 @@ public class Ship : Agent
         float newVal = scale * maxSpeedChange;
         //float newVal = scale * maxMoveSpeed;
         if (newVal < 0) newVal *= decelerationMultiplier;
+        newVal = Mathf.Clamp(moveSpeed + newVal, 0, maxMoveSpeed);
         moveSpeed = newVal;
     }
 
@@ -180,6 +210,7 @@ public class Ship : Agent
         rb.transform.localPosition = new Vector3(UnityEngine.Random.Range(-areaSize, areaSize), UnityEngine.Random.Range(-areaSize, areaSize), 0);
         rb.transform.rotation = Quaternion.Euler(0, 0, (float)(360 * UnityEngine.Random.value));
 
-        targetTransform.gameObject.transform.localPosition = new Vector3(UnityEngine.Random.Range(-areaSize, areaSize), UnityEngine.Random.Range(-areaSize, areaSize), 0);
+        if(randomTargetPosition)
+            targetTransform.gameObject.transform.localPosition = new Vector3(UnityEngine.Random.Range(-areaSize, areaSize), UnityEngine.Random.Range(-areaSize, areaSize), 0);
     }
 }
