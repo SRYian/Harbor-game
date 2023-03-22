@@ -1,0 +1,65 @@
+{
+    "Ship": {
+        "checkpoints": [
+            {
+                "steps": 2999997,
+                "file_path": "results\\ship_2.3\\Ship\\Ship-2999997.onnx",
+                "reward": 1.6371716778687757,
+                "creation_time": 1679436318.784678,
+                "auxillary_file_paths": [
+                    "results\\ship_2.3\\Ship\\Ship-2999997.pt"
+                ]
+            },
+            {
+                "steps": 3499995,
+                "file_path": "results\\ship_2.3\\Ship\\Ship-3499995.onnx",
+                "reward": 1.7425493612064151,
+                "creation_time": 1679436729.629455,
+                "auxillary_file_paths": [
+                    "results\\ship_2.3\\Ship\\Ship-3499995.pt"
+                ]
+            },
+            {
+                "steps": 3999992,
+                "file_path": "results\\ship_2.3\\Ship\\Ship-3999992.onnx",
+                "reward": 1.7221555525276262,
+                "creation_time": 1679437139.4175818,
+                "auxillary_file_paths": [
+                    "results\\ship_2.3\\Ship\\Ship-3999992.pt"
+                ]
+            },
+            {
+                "steps": 4499988,
+                "file_path": "results\\ship_2.3\\Ship\\Ship-4499988.onnx",
+                "reward": 1.6213741641778212,
+                "creation_time": 1679437553.4060466,
+                "auxillary_file_paths": [
+                    "results\\ship_2.3\\Ship\\Ship-4499988.pt"
+                ]
+            },
+            {
+                "steps": 4520148,
+                "file_path": "results\\ship_2.3\\Ship\\Ship-4520148.onnx",
+                "reward": 1.7005562352485397,
+                "creation_time": 1679437632.7032132,
+                "auxillary_file_paths": [
+                    "results\\ship_2.3\\Ship\\Ship-4520148.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 4520148,
+            "file_path": "results\\ship_2.3\\Ship.onnx",
+            "reward": 1.7005562352485397,
+            "creation_time": 1679437632.7032132,
+            "auxillary_file_paths": [
+                "results\\ship_2.3\\Ship\\Ship-4520148.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

@@ -1,0 +1,65 @@
+{
+    "Ship": {
+        "checkpoints": [
+            {
+                "steps": 152672,
+                "file_path": "results\\ship_2.2\\Ship\\Ship-152672.onnx",
+                "reward": 1.5063881183212453,
+                "creation_time": 1679429624.2957788,
+                "auxillary_file_paths": [
+                    "results\\ship_2.2\\Ship\\Ship-152672.pt"
+                ]
+            },
+            {
+                "steps": 499975,
+                "file_path": "results\\ship_2.2\\Ship\\Ship-499975.onnx",
+                "reward": 1.6192163451562953,
+                "creation_time": 1679430775.1831539,
+                "auxillary_file_paths": [
+                    "results\\ship_2.2\\Ship\\Ship-499975.pt"
+                ]
+            },
+            {
+                "steps": 999988,
+                "file_path": "results\\ship_2.2\\Ship\\Ship-999988.onnx",
+                "reward": 1.7318203378197372,
+                "creation_time": 1679431203.3668318,
+                "auxillary_file_paths": [
+                    "results\\ship_2.2\\Ship\\Ship-999988.pt"
+                ]
+            },
+            {
+                "steps": 1499979,
+                "file_path": "results\\ship_2.2\\Ship\\Ship-1499979.onnx",
+                "reward": 1.758077196601788,
+                "creation_time": 1679431614.4036577,
+                "auxillary_file_paths": [
+                    "results\\ship_2.2\\Ship\\Ship-1499979.pt"
+                ]
+            },
+            {
+                "steps": 1917557,
+                "file_path": "results\\ship_2.2\\Ship\\Ship-1917557.onnx",
+                "reward": 1.7616841040159528,
+                "creation_time": 1679432133.824672,
+                "auxillary_file_paths": [
+                    "results\\ship_2.2\\Ship\\Ship-1917557.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1917557,
+            "file_path": "results\\ship_2.2\\Ship.onnx",
+            "reward": 1.7616841040159528,
+            "creation_time": 1679432133.824672,
+            "auxillary_file_paths": [
+                "results\\ship_2.2\\Ship\\Ship-1917557.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

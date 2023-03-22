@@ -26,9 +26,13 @@ public class Ship : Agent
     private Transform targetTransform;
 
     public float areaSize;
+    public float areaSizeMin;
 
     private float episodeTime;
     public float maxTime;
+
+    private SetController setController;
+    public bool logDebug = false;
 
     public void Awake()
     {
@@ -37,12 +41,16 @@ public class Ship : Agent
     public override void Initialize()
     {
         targetTransform = transform.parent.Find("Target");
+        setController = GetComponentInParent<SetController>();
         base.Initialize();
     }
     public override void OnEpisodeBegin()
     {
         episodeTime = 0;
+        moveSpeed = 0;
+        turnSpeed = 0;
         randomizePosition();
+        setController.OnEpisodeBegin();
         base.OnEpisodeBegin();
     }
     public override void OnActionReceived(ActionBuffers actions)
@@ -82,6 +90,9 @@ public class Ship : Agent
             sensor.AddObservation(sees_obstacle ? hit.distance / vision_distance : 1.0f);
             sensor.AddObservation(sees_goal ? hit.distance / vision_distance : 1.0f);
             //if (hit) print("keliatan");
+            // todo : raycast to detect a light object 1 if true 0 if false
+            // RaycastHit2D hit_light = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance,);
+            sensor.AddObservation(1.0f);
         }
         base.CollectObservations(sensor);
     }
@@ -102,9 +113,6 @@ public class Ship : Agent
         if (Input.GetKey(KeyCode.DownArrow) == true)
             continuousActionsOut[1] = -1;
 
-        if (Input.GetKey(KeyCode.UpArrow) == true)
-            print("up pressed");
-
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -119,7 +127,7 @@ public class Ship : Agent
         if (collision.gameObject.CompareTag("Monster") == true)
         {
             // eaten, om nom
-            AddReward(-1.0f);
+            AddReward(-1.5f);
             EndEpisode();
             return;
         }
@@ -129,8 +137,8 @@ public class Ship : Agent
             AddReward(1.0f + (maxTime - episodeTime) / maxTime);
             EndEpisode();
         }
-
-        print("collided");
+        if(logDebug)
+            print("collided");
     }
 
     private void OnDrawGizmos()
@@ -179,7 +187,7 @@ public class Ship : Agent
         episodeTime += Time.deltaTime;
         if (episodeTime > maxTime)
         {
-            AddReward(-0.9f);
+            AddReward(-0.6f);
             EndEpisode();
         }
 
@@ -207,8 +215,28 @@ public class Ship : Agent
 
     private void randomizePosition()
     {
-        rb.transform.localPosition = new Vector3(UnityEngine.Random.Range(-areaSize, areaSize), UnityEngine.Random.Range(-areaSize, areaSize), 0);
-        rb.transform.rotation = Quaternion.Euler(0, 0, (float)(360 * UnityEngine.Random.value));
+        Vector3 newPosition = new Vector3(UnityEngine.Random.Range(areaSizeMin, areaSize), UnityEngine.Random.Range(-areaSize, areaSize), 0);
+        float randomSign1 = Mathf.Sign(UnityEngine.Random.value - 0.5f);
+        float randomSign2 = Mathf.Sign(UnityEngine.Random.value - 0.5f);
+        float randomSign3 = Mathf.Sign(UnityEngine.Random.value - 0.5f);
+        if (randomSign3 < 0)
+        {
+            var tempx = newPosition.x;
+            var tempy = newPosition.y;
+            newPosition.x = tempy;
+            newPosition.y = tempx;
+        }
+        newPosition.x *= randomSign1;
+        newPosition.y *= randomSign2;
+        rb.transform.localPosition = newPosition;
+
+        float directionNoise = 45 - UnityEngine.Random.value * 90;
+        Vector2 deltaDirection = targetTransform.localPosition - transform.localPosition;
+        float facingTargetAngle = Mathf.Atan2(deltaDirection.y, deltaDirection.x) * Mathf.Rad2Deg;
+        if(logDebug)
+            print("angle to goal:" + facingTargetAngle);
+        facingTargetAngle -= 90; //default facing top
+        rb.transform.rotation = Quaternion.Euler(0,0, facingTargetAngle + directionNoise);
 
         if(randomTargetPosition)
             targetTransform.gameObject.transform.localPosition = new Vector3(UnityEngine.Random.Range(-areaSize, areaSize), UnityEngine.Random.Range(-areaSize, areaSize), 0);

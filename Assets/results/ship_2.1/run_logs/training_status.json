@@ -1,0 +1,56 @@
+{
+    "Ship": {
+        "checkpoints": [
+            {
+                "steps": 107735,
+                "file_path": "results\\ship_2.1\\Ship\\Ship-107735.onnx",
+                "reward": -0.3098373878292921,
+                "creation_time": 1679427527.581064,
+                "auxillary_file_paths": [
+                    "results\\ship_2.1\\Ship\\Ship-107735.pt"
+                ]
+            },
+            {
+                "steps": 499968,
+                "file_path": "results\\ship_2.1\\Ship\\Ship-499968.onnx",
+                "reward": 1.3995960119998816,
+                "creation_time": 1679428063.031589,
+                "auxillary_file_paths": [
+                    "results\\ship_2.1\\Ship\\Ship-499968.pt"
+                ]
+            },
+            {
+                "steps": 999990,
+                "file_path": "results\\ship_2.1\\Ship\\Ship-999990.onnx",
+                "reward": 1.1132644440816797,
+                "creation_time": 1679428544.2556033,
+                "auxillary_file_paths": [
+                    "results\\ship_2.1\\Ship\\Ship-999990.pt"
+                ]
+            },
+            {
+                "steps": 1329312,
+                "file_path": "results\\ship_2.1\\Ship\\Ship-1329312.onnx",
+                "reward": 1.3591046070123647,
+                "creation_time": 1679428830.9645205,
+                "auxillary_file_paths": [
+                    "results\\ship_2.1\\Ship\\Ship-1329312.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1329312,
+            "file_path": "results\\ship_2.1\\Ship.onnx",
+            "reward": 1.3591046070123647,
+            "creation_time": 1679428830.9645205,
+            "auxillary_file_paths": [
+                "results\\ship_2.1\\Ship\\Ship-1329312.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
