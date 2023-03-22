@@ -82,17 +82,21 @@ public class Ship : Agent
         {
             float x = Mathf.Cos(Mathf.Deg2Rad * visionAngle);
             float y = Mathf.Sin(Mathf.Deg2Rad * visionAngle);
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance);
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance, LayerMask.GetMask("Default"));
             bool sees_monster = (hit && hit.collider.gameObject.CompareTag("Monster"));
             bool sees_obstacle = (hit && hit.collider.gameObject.CompareTag("Obstacle"));
             bool sees_goal = (hit && hit.collider.gameObject.CompareTag("Target"));
             sensor.AddObservation(sees_monster ? hit.distance / vision_distance : 1.0f);
             sensor.AddObservation(sees_obstacle ? hit.distance / vision_distance : 1.0f);
             sensor.AddObservation(sees_goal ? hit.distance / vision_distance : 1.0f);
-            //if (hit) print("keliatan");
             // todo : raycast to detect a light object 1 if true 0 if false
-            // RaycastHit2D hit_light = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance,);
-            sensor.AddObservation(1.0f);
+            bool sees_something = sees_goal || sees_monster || sees_obstacle;
+            bool sees_light = false;
+            if (sees_something)
+                sees_light |= true;
+            RaycastHit2D hit_light = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance, LayerMask.GetMask("Light"));
+            sees_light |= (hit_light && hit_light.collider.gameObject.CompareTag("Light"));
+            sensor.AddObservation(sees_light);
         }
         base.CollectObservations(sensor);
     }
@@ -151,7 +155,7 @@ public class Ship : Agent
             float x = Mathf.Cos(Mathf.Deg2Rad * visionAngle);
             float y = Mathf.Sin(Mathf.Deg2Rad * visionAngle);
 
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance);
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance, LayerMask.GetMask("Default"));
             bool sees_monster = (hit && hit.collider.gameObject.CompareTag("Monster"));
             bool sees_obstacle = (hit && hit.collider.gameObject.CompareTag("Obstacle"));
             bool sees_goal = (hit && hit.collider.gameObject.CompareTag("Target"));
@@ -174,10 +178,18 @@ public class Ship : Agent
             {
                 Vector2 dp = hit.point - new Vector2(p.x, p.y);
                 Gizmos.DrawRay(new Vector2(p.x, p.y), dp);
-                
-            } 
-            else 
-                Gizmos.DrawRay(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)) * vision_distance);
+            }
+            else
+            {
+                RaycastHit2D hit_light = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance, LayerMask.GetMask("Light"));
+                if (hit_light)
+                {
+                    Gizmos.color = Color.blue;
+                }
+                else
+                    Gizmos.DrawRay(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)) * vision_distance);
+            }
+            
         }
         return;
     }
