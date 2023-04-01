@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Ground
   - Target
+  - Monster
+  - Obstacle
+  - Light
+  - Ship
   layers:
   - Default
   - TransparentFX
@@ -13,11 +17,11 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Light
+  - Monster
+  - Obstacles
+  - Ship
+  - Darken
   - 
   - 
   - 

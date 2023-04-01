@@ -49,10 +49,11 @@ public class Ship : Agent
         episodeTime = 0;
         moveSpeed = 0;
         turnSpeed = 0;
-        randomizePosition();
+        //randomizePosition();
         setController.OnEpisodeBegin();
         base.OnEpisodeBegin();
     }
+
     public override void OnActionReceived(ActionBuffers actions)
     {
         ActionSegment<float> continuousActions = actions.ContinuousActions;
@@ -82,7 +83,7 @@ public class Ship : Agent
         {
             float x = Mathf.Cos(Mathf.Deg2Rad * visionAngle);
             float y = Mathf.Sin(Mathf.Deg2Rad * visionAngle);
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance, LayerMask.GetMask("Obstacles", "Monster"));
             bool sees_monster = (hit && hit.collider.gameObject.CompareTag("Monster"));
             bool sees_obstacle = (hit && hit.collider.gameObject.CompareTag("Obstacle"));
             bool sees_goal = (hit && hit.collider.gameObject.CompareTag("Target"));
@@ -124,6 +125,7 @@ public class Ship : Agent
         {
             // crash
             AddReward(-1f);
+            setController.EndMonster(-GetCumulativeReward());
             EndEpisode();
             return;
         }
@@ -132,6 +134,7 @@ public class Ship : Agent
         {
             // eaten, om nom
             AddReward(-1.5f);
+            setController.EndMonster(1f);
             EndEpisode();
             return;
         }
@@ -139,6 +142,7 @@ public class Ship : Agent
         if (collision.gameObject.CompareTag("Target") == true)
         {
             AddReward(1.0f + (maxTime - episodeTime) / maxTime);
+            setController.EndMonster(-GetCumulativeReward());
             EndEpisode();
         }
         if(logDebug)
@@ -155,7 +159,7 @@ public class Ship : Agent
             float x = Mathf.Cos(Mathf.Deg2Rad * visionAngle);
             float y = Mathf.Sin(Mathf.Deg2Rad * visionAngle);
 
-            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance, LayerMask.GetMask("Default"));
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance, LayerMask.GetMask("Obstacles", "Monster"));
             bool sees_monster = (hit && hit.collider.gameObject.CompareTag("Monster"));
             bool sees_obstacle = (hit && hit.collider.gameObject.CompareTag("Obstacle"));
             bool sees_goal = (hit && hit.collider.gameObject.CompareTag("Target"));
@@ -186,7 +190,7 @@ public class Ship : Agent
                 {
                     Gizmos.color = Color.blue;
                 }
-                else
+                //else
                     Gizmos.DrawRay(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)) * vision_distance);
             }
             
@@ -200,6 +204,7 @@ public class Ship : Agent
         if (episodeTime > maxTime)
         {
             AddReward(-0.6f);
+            setController.EndMonster(0.0f);
             EndEpisode();
         }
 
@@ -225,7 +230,7 @@ public class Ship : Agent
         turnSpeed = -maxTurnSpeed * scale;
     }
 
-    private void randomizePosition()
+    public void randomizePosition()
     {
         Vector3 newPosition = new Vector3(UnityEngine.Random.Range(areaSizeMin, areaSize), UnityEngine.Random.Range(-areaSize, areaSize), 0);
         float randomSign1 = Mathf.Sign(UnityEngine.Random.value - 0.5f);

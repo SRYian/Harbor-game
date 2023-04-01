@@ -19,7 +19,7 @@ public class Rock : MonoBehaviour
     public void HideRock()
     {
         isVisible = false;
-        gameObject.layer = LayerMask.NameToLayer("Ignore Raycast");
+        gameObject.layer = LayerMask.NameToLayer("Darken");
         if(spriteRenderer)
             spriteRenderer.color = Color.gray;
     }
@@ -27,7 +27,7 @@ public class Rock : MonoBehaviour
     public void ShowRock()
     {
         isVisible = true;
-        gameObject.layer = LayerMask.NameToLayer("Default");
+        gameObject.layer = LayerMask.NameToLayer("Obstacles");
         if (spriteRenderer)
             spriteRenderer.color = Color.white;
     }
