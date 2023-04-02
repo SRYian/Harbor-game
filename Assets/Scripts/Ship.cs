@@ -140,6 +140,9 @@ public class Ship : Agent
             AddReward(-1.5f);
             setController.EndMonster(1f);
             EndEpisode();
+            Destroy(gameObject);
+            Debug.Log("GAME OVER!!");
+
             return;
         }
 
@@ -148,7 +151,7 @@ public class Ship : Agent
             AddReward(1.0f + (maxTime - episodeTime) / maxTime);
             setController.EndMonster(-GetCumulativeReward());
             EndEpisode();
-            Debug.Log("poggersssssssss");
+            Debug.Log("poggersssssssss we winn");
         }
         if(logDebug)
             print("collided");
