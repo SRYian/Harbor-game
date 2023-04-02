@@ -228,4 +228,53 @@ public class Monster : Agent
        
         rb.transform.rotation = Quaternion.Euler(0, 0, directionNoise);
     }
+
+    public void MakeSound()
+    {
+        Vector3 p = transform.position;
+        Transform tf = transform;
+        foreach (float visionAngle in visionAngles)
+        {
+
+            float x = Mathf.Cos(Mathf.Deg2Rad * visionAngle);
+            float y = Mathf.Sin(Mathf.Deg2Rad * visionAngle);
+
+            RaycastHit2D hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), vision_distance, LayerMask.GetMask("Ship", "Obstacles"));
+            bool sees_ship = (hit && hit.collider.gameObject.CompareTag("Ship"));
+            bool sees_obstacle = (hit && (hit.collider.gameObject.CompareTag("Obstacle") || hit.collider.gameObject.CompareTag("Target")));
+            bool saw_something = sees_ship || sees_obstacle;
+
+            if (!saw_something)
+            {
+                hit = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), 5.0f, LayerMask.GetMask("Darken"));
+            }
+
+            sees_ship = (hit && hit.collider.gameObject.CompareTag("Ship"));
+            sees_obstacle = (hit && (hit.collider.gameObject.CompareTag("Obstacle") || hit.collider.gameObject.CompareTag("Target")));
+            saw_something = sees_ship || sees_obstacle;
+
+            if (sees_ship)
+            {
+                //do stuff
+            }
+            if (sees_obstacle)
+            {
+                //do stuff
+            }
+            if (saw_something)
+            {
+                Vector2 dp = hit.point - new Vector2(p.x, p.y);
+                //do stuff
+            }
+            else
+            {
+                RaycastHit2D hit_light = Physics2D.Raycast(new Vector2(p.x, p.y), ((tf.right * x) + (tf.up * y)), light_vision_distance, LayerMask.GetMask("Light"));
+                if (hit_light)
+                {
+                    //my eyesssss
+                }
+                //else
+            }
+        }
+        }
 }
