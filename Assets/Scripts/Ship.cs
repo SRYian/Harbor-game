@@ -140,7 +140,8 @@ public class Ship : Agent
             AddReward(-1.5f);
             setController.EndMonster(1f);
             EndEpisode();
-            Destroy(gameObject);
+            if(!training)
+                Destroy(gameObject);
             Debug.Log("GAME OVER!!");
 
             return;

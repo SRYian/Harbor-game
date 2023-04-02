@@ -3844,6 +3844,7 @@ GameObject:
   - component: {fileID: 2405031821438542146}
   - component: {fileID: 5626188869791587455}
   - component: {fileID: 8537272900575089931}
+  - component: {fileID: 1554120617}
   m_Layer: 7
   m_Name: Monster
   m_TagString: Monster
@@ -3859,7 +3860,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7563641810540549258}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 9.99, y: 6.08, z: -256.20248}
+  m_LocalPosition: {x: 7.6, y: -0.9, z: -256.20248}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3968,7 +3969,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: 98b58538687c5564fae0192aa0c49e3a, type: 3}
   m_InferenceDevice: 0
-  m_BehaviorType: 0
+  m_BehaviorType: 2
   m_BehaviorName: Monster
   TeamId: 0
   m_UseChildSensors: 1
@@ -4044,6 +4045,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1554120617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7563641810540549258}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57d38df9ea77d4d4c88c9f30271993c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lightTriggerObjectTags: []
+  layerNameIfVisible: 
+  layerNameIfNotVisible: 
+  doDarken: 1
+  startDark: 0
 --- !u!1 &7841081545696777469
 GameObject:
   m_ObjectHideFlags: 0
@@ -4879,7 +4897,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2, y: 2}
+    oldSize: {x: 1, y: 1}
     newSize: {x: 2.4, y: 2.4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -4912,7 +4930,7 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 5022602860645237092, guid: eb82ec21ace909a40960edbb7710cbaf, type: 3}
   m_InferenceDevice: 1
-  m_BehaviorType: 2
+  m_BehaviorType: 0
   m_BehaviorName: Ship
   TeamId: 0
   m_UseChildSensors: 1
@@ -4954,6 +4972,7 @@ MonoBehaviour:
   areaSize: 9.5
   areaSizeMin: 8
   maxTime: 45
+  training: 1
   logDebug: 0
 --- !u!114 &1936237198
 MonoBehaviour:
