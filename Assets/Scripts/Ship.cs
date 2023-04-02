@@ -31,6 +31,7 @@ public class Ship : Agent
     private float episodeTime;
     public float maxTime;
 
+    public bool training;
     private SetController setController;
     public bool logDebug = false;
 
@@ -50,7 +51,10 @@ public class Ship : Agent
         moveSpeed = 0;
         turnSpeed = 0;
         //randomizePosition();
-        setController.OnEpisodeBegin();
+        if (training)
+            setController.OnEpisodeBegin();
+        else
+            crashShip();
         base.OnEpisodeBegin();
     }
 
@@ -257,5 +261,10 @@ public class Ship : Agent
 
         if(randomTargetPosition)
             targetTransform.gameObject.transform.localPosition = new Vector3(UnityEngine.Random.Range(-areaSize, areaSize), UnityEngine.Random.Range(-areaSize, areaSize), 0);
+    }
+
+    public void crashShip()
+    {
+
     }
 }
