@@ -148,6 +148,7 @@ public class Ship : Agent
             AddReward(1.0f + (maxTime - episodeTime) / maxTime);
             setController.EndMonster(-GetCumulativeReward());
             EndEpisode();
+            Debug.Log("poggersssssssss");
         }
         if(logDebug)
             print("collided");
@@ -265,6 +266,6 @@ public class Ship : Agent
 
     public void crashShip()
     {
-
+        //Debug.Log("I crashed!!");
     }
 }
