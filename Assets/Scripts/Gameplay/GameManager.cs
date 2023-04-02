@@ -9,7 +9,18 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private GameObject loadingscreen;
     [SerializeField] private Slider loadingbar;
+    [SerializeField] public GameObject losescreen;
+    [SerializeField] public GameObject winscreen;
+    public static GameManager instance;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        if (!instance)
+        {
+            instance = this;
+        }
+        ResumeGame();
+    }
     void Start()
     {
         

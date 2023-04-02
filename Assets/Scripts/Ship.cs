@@ -140,6 +140,8 @@ public class Ship : Agent
             AddReward(-1.5f);
             setController.EndMonster(1f);
             EndEpisode();
+            if(GameManager.instance)
+                GameManager.instance.losescreen.SetActive(true);
             if(!training)
                 Destroy(gameObject);
             Debug.Log("GAME OVER!!");
@@ -153,6 +155,8 @@ public class Ship : Agent
             setController.EndMonster(-GetCumulativeReward());
             EndEpisode();
             Debug.Log("poggersssssssss we winn");
+            if (GameManager.instance)
+                GameManager.instance.winscreen.SetActive(true);
         }
         if(logDebug)
             print("collided");
