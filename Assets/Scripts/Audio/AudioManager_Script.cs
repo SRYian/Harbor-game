@@ -27,4 +27,17 @@ public class AudioManager_Script : MonoBehaviour
         
     }
 
+    public static void PlaySFX(AudioClip sound)
+    {
+
+        Source[1].Stop();
+        Source[1].clip = sound;
+        Source[1].Play();
+    }
+    public static void StopSFX()
+    {
+        Source[1].Stop();
+
+    }
+
 }
