@@ -3,7 +3,7 @@ project for unity ML Agents in unity
 
 # Contributors
 - [Alffaza](https://github.com/Alffaza)
-- [Siruenyian](https://github.com/Siruenian)
+- [Siruenyian](https://github.com/Siruenyian)
 
 # Notes
 - Project Unity version: 2021.3.8f1
